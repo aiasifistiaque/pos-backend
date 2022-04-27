@@ -14,9 +14,8 @@ const addNewCategoryController = asyncHandler(async (req, res) => {
 			note,
 		});
 		const saved = await newItem.save();
-		if (saved) {
-		}
-		res.status(201).json({ data: newItem, status: 'Item has been added' });
+
+		res.status(201).json({ data: saved, status: 'Item has been added' });
 	} catch (e) {
 		console.log(e);
 		res.status(500).json({ status: 'error', error: e.message });

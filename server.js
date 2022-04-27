@@ -5,6 +5,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
+import authRoute from './routes/authRoute.js';
+import categoryRoute from './routes/categoryRoute.js';
+import brandRoute from './routes/brandRoute.js';
+import productRoute from './routes/productRoute.js';
 
 dotenv.config();
 
@@ -40,6 +44,11 @@ app.use(function (req, res, next) {
 	);
 	next();
 });
+
+app.use('/auth', authRoute);
+app.use('/api/categories', categoryRoute);
+app.use('/api/brands', brandRoute);
+app.use('/api/products', productRoute);
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

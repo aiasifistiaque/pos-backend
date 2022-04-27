@@ -17,12 +17,10 @@ const schema = mongoose.Schema(
 		images: [],
 		brand: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true,
 			ref: 'Brand',
 		},
 		category: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true,
 			ref: 'Category',
 		},
 
