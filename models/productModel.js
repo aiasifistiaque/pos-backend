@@ -53,13 +53,11 @@ const schema = mongoose.Schema(
 
 		price: {
 			type: Number,
-			required: true,
 			default: 0,
 		},
 
 		cost: {
 			type: Number,
-			required: true,
 			default: 0,
 		},
 

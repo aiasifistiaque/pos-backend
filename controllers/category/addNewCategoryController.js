@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import Category from '../../models/categoryModel.js';
 
 const addNewCategoryController = asyncHandler(async (req, res) => {
