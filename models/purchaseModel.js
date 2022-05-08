@@ -14,7 +14,7 @@ const schema = mongoose.Schema(
 		orderItems: [
 			{
 				price: { type: Number, required: true },
-				qty: { type: Number, required: true },
+				quantity: { type: Number, required: true },
 				product: {
 					type: mongoose.Schema.Types.ObjectId,
 					required: true,
@@ -22,23 +22,26 @@ const schema = mongoose.Schema(
 				},
 			},
 		],
-		status: { type: String, required: true, default: 'Order Placed' },
+		status: { type: String },
 		seen: { type: Number, default: 0 },
 
-		shippingAddress: {
-			phone: { type: String, required: true },
-			address: { type: String, required: true },
-			city: { type: String, required: true },
-			postalCode: { type: String, required: true },
-			country: { type: String, required: true, default: 'Bangladesh' },
-		},
+		// shippingAddress: {
+		// 	phone: { type: String, required: true },
+		// 	address: { type: String, required: true },
+		// 	city: { type: String, required: true },
+		// 	postalCode: { type: String, required: true },
+		// 	country: { type: String, required: true, default: 'Bangladesh' },
+		// },
 		paymentMethod: {
 			type: String,
-			required: true,
-			default: 'cash',
 		},
 
 		itemPrice: {
+			type: Number,
+			required: true,
+			default: 0.0,
+		},
+		quantity: {
 			type: Number,
 			required: true,
 			default: 0.0,
