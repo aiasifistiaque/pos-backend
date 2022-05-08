@@ -5,7 +5,7 @@ import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.get('/', protect, getallPurchasesController);
+router.get('/', getallPurchasesController);
 router.post('/', protect, addPurchaseController);
 
 export default router;
