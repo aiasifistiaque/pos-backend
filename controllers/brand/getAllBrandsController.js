@@ -3,7 +3,7 @@ import Brand from '../../models/brandModel.js';
 
 const getAllBrandsController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Brand.find();
+		const data = await Brand.find({ user: req.user._id });
 
 		res.status(200).json({ data: data, status: 'successful' });
 	} catch (e) {

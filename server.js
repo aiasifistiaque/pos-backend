@@ -10,6 +10,8 @@ import categoryRoute from './routes/categoryRoute.js';
 import brandRoute from './routes/brandRoute.js';
 import productRoute from './routes/productRoute.js';
 import purchaseRoute from './routes/purchaseRoute.js';
+import saleRoute from './routes/saleRoute.js';
+import dashRoute from './routes/dashRoute.js';
 
 dotenv.config();
 
@@ -51,6 +53,8 @@ app.use('/api/categories', categoryRoute);
 app.use('/api/brands', brandRoute);
 app.use('/api/products', productRoute);
 app.use('/api/purchases', purchaseRoute);
+app.use('/api/sales', saleRoute);
+app.use('/api/dashboard', dashRoute);
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

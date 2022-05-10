@@ -9,7 +9,7 @@ import { protect } from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/', protect, addNewProductController);
-router.get('/', getAllProductsController);
+router.get('/', protect, getAllProductsController);
 router.get('/:id', getProductById);
 
 export default router;

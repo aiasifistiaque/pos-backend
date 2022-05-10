@@ -1,9 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import Purchase from '../../models/purchaseModel.js';
+import Sale from '../../models/saleModel.js';
 
-const getallPurchasesController = asyncHandler(async (req, res) => {
+const getAllSalesController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Purchase.find({ user: req.user._id }).sort('-createdAt');
+		const data = await Sale.find({ user: req.user._id });
 
 		res.status(200).json({ data: data, status: 'successful' });
 	} catch (e) {
@@ -12,4 +13,4 @@ const getallPurchasesController = asyncHandler(async (req, res) => {
 	}
 });
 
-export default getallPurchasesController;
+export default getAllSalesController;

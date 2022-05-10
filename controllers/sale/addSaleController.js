@@ -1,10 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import Product from '../../models/productModel.js';
-import Purchase from '../../models/purchaseModel.js';
+import Sale from '../../models/saleModel.js';
 
-const addPurchaseController = asyncHandler(async (req, res) => {
+const addSaleController = asyncHandler(async (req, res) => {
 	const { items, shippingPrice, vat, discount } = req.body;
 	try {
 		let itemPrice = 0;
@@ -12,17 +11,17 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 		items.map(async item => {
 			const priceOfThisItem = item.price * item.quantity;
 			itemPrice = itemPrice + priceOfThisItem;
-			totalQuantity = totalQuantity + parseInt(item.quantity);
 			const product = await Product.findById(item.product);
-			const stock = product.stock
-				? product.stock + item.quantity
-				: item.quantity;
+			const stock = product.stock - item.quantity;
+			product.totalSold += item.quantity;
 			product.stock = stock;
 			await product.save();
+			totalQuantity = totalQuantity + parseInt(item.quantity);
 		});
 		const initialPrice = itemPrice;
 		itemPrice = itemPrice + shippingPrice + vat - discount;
-		const newItem = new Purchase({
+
+		const newItem = new Sale({
 			user: req.user._id,
 			orderItems: items,
 			itemPrice: initialPrice,
@@ -31,10 +30,10 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 			vat,
 			totalPrice: parseInt(itemPrice),
 			quantity: totalQuantity,
+			customer: req.body.customer,
 		});
 		const saved = await newItem.save();
-		if (saved) {
-		}
+
 		res.status(201).json({ data: newItem, status: 'Item has been added' });
 	} catch (e) {
 		console.log(e);
@@ -42,4 +41,4 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 	}
 });
 
-export default addPurchaseController;
+export default addSaleController;
