@@ -12,6 +12,7 @@ import productRoute from './routes/productRoute.js';
 import purchaseRoute from './routes/purchaseRoute.js';
 import saleRoute from './routes/saleRoute.js';
 import dashRoute from './routes/dashRoute.js';
+import expenseRoute from './routes/expenseRoute.js';
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ app.use('/api/products', productRoute);
 app.use('/api/purchases', purchaseRoute);
 app.use('/api/sales', saleRoute);
 app.use('/api/dashboard', dashRoute);
+app.use('/api/expenses', expenseRoute);
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import moment from 'moment';
 import Brand from '../../models/brandModel.js';
 import Category from '../../models/categoryModel.js';
+import Expense from '../../models/expenseModel.js';
 
 import Product from '../../models/productModel.js';
 import Purchase from '../../models/purchaseModel.js';
@@ -31,6 +32,7 @@ const getDashInfo = asyncHandler(async (req, res) => {
 		const brands = await Brand.count({ user: req.user._id });
 		const salesData = await Sale.find({ user: req.user._id });
 		const purchaseData = await Purchase.find({ user: req.user._id });
+		const expensesData = await Expense.find({ user: req.user._id });
 
 		const today = moment().startOf('day');
 
@@ -139,6 +141,10 @@ const getDashInfo = asyncHandler(async (req, res) => {
 			salesLastWeek: countValue(salesLastWeek),
 			salesThisMonth: countValue(salesThisMonth),
 			salesLastMonth: countValue(salesLastMonth),
+			expenses: {
+				count: expensesData.length,
+				value: expensesData.reduce((sum, item) => sum + item.amount, 0),
+			},
 			categories,
 			brands,
 			user,
