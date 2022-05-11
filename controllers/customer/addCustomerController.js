@@ -12,7 +12,7 @@ const addCustomerController = asyncHandler(async (req, res) => {
 			phone,
 			email,
 			address,
-			role,
+			role: req.query.role,
 		});
 		const saved = await newItem.save();
 
