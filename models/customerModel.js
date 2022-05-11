@@ -32,6 +32,20 @@ const schema = mongoose.Schema(
 			type: String,
 			trim: true,
 		},
+		payable: {
+			type: Number,
+		},
+		role: {
+			type: String,
+			required: true,
+		},
+
+		receivable: {
+			type: Number,
+		},
+		due: {
+			type: Number,
+		},
 
 		note: {
 			type: String,
