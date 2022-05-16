@@ -4,7 +4,10 @@ import Sale from '../../models/saleModel.js';
 
 const getAllSalesController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Sale.find({ user: req.user._id });
+		const data = await Sale.find({ user: req.user._id }).populate({
+			path: 'user',
+			select: 'name email',
+		});
 
 		res.status(200).json({ data: data, status: 'successful' });
 	} catch (e) {
