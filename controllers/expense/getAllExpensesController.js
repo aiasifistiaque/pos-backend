@@ -3,7 +3,7 @@ import Expense from '../../models/expenseModel.js';
 
 const getAllExpensesController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Expense.find({ user: req.user._id });
+		const data = await Expense.find({ store: req.store });
 
 		res.status(201).json({ data: data, status: 'successful' });
 	} catch (e) {

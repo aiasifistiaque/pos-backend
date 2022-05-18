@@ -11,6 +11,10 @@ const schema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Customer',
 		},
+		store: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Shop',
+		},
 		orderItems: [
 			{
 				price: { type: Number, required: true },

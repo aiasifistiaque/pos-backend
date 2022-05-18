@@ -26,6 +26,7 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			const newCategory = new Category({
 				user: req.user._id,
 				name: otherCategory,
+				store: req.store,
 			});
 			const savedCategory = await newCategory.save();
 			category = savedCategory;
@@ -46,6 +47,7 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			subCategory,
 			size,
 			totalSold,
+			store: req.store,
 		});
 		const saved = await newItem.save();
 		if (saved) {

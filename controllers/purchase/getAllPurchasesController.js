@@ -3,7 +3,7 @@ import Purchase from '../../models/purchaseModel.js';
 
 const getallPurchasesController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Purchase.find({ user: req.user._id }).sort('-createdAt');
+		const data = await Purchase.find({ store: req.store }).sort('-createdAt');
 
 		res.status(200).json({ data: data, status: 'successful' });
 	} catch (e) {

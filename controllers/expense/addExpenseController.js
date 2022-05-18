@@ -12,6 +12,7 @@ const addExpenseController = asyncHandler(async (req, res) => {
 			description,
 			note,
 			amount: parseInt(amount),
+			store: req.store,
 		});
 		const saved = await newItem.save();
 

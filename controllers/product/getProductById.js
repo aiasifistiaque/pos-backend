@@ -13,6 +13,9 @@ const getProductById = asyncHandler(async (req, res) => {
 				path: 'brand',
 				select: 'name',
 			},
+			{
+				path: 'store',
+			},
 		]);
 
 		res.status(200).json({ data: data, status: 'successful' });

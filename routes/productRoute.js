@@ -4,11 +4,12 @@ import getAllProductsController from '../controllers/product/getAllProductsContr
 import getProductById from '../controllers/product/getProductById.js';
 
 import { protect } from '../middleware/auth.js';
+import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.post('/', protect, addNewProductController);
-router.get('/', protect, getAllProductsController);
+router.post('/', protect, store, addNewProductController);
+router.get('/', protect, store, getAllProductsController);
 router.get('/:id', getProductById);
 
 export default router;

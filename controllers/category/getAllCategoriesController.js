@@ -4,7 +4,7 @@ import Category from '../../models/categoryModel.js';
 
 const getAllCategoriesController = asyncHandler(async (req, res) => {
 	try {
-		const data = await Category.find({ user: req.user._id });
+		const data = await Category.find({ store: req.store });
 
 		res.status(201).json({ data: data, status: 'successful' });
 	} catch (e) {

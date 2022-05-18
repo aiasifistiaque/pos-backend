@@ -31,6 +31,7 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 			vat,
 			totalPrice: parseInt(itemPrice),
 			quantity: totalQuantity,
+			store: req.store,
 		});
 		const saved = await newItem.save();
 		if (saved) {

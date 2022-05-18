@@ -75,8 +75,18 @@ const schema = mongoose.Schema(
 			type: Number,
 			default: 0,
 		},
+		store: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Shop',
+		},
 
 		stock: {
+			type: Number,
+			required: true,
+			default: 0,
+		},
+
+		stockAlert: {
 			type: Number,
 			required: true,
 			default: 0,

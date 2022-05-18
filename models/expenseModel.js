@@ -14,6 +14,10 @@ const schema = mongoose.Schema(
 		details: {
 			type: String,
 		},
+		store: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Shop',
+		},
 		amount: {
 			type: Number,
 			required: true,

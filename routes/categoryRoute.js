@@ -3,10 +3,11 @@ import addNewCategoryController from '../controllers/category/addNewCategoryCont
 import getAllCategoriesController from '../controllers/category/getAllCategoriesController.js';
 
 import { protect } from '../middleware/auth.js';
+import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.post('/', protect, addNewCategoryController);
-router.get('/', protect, getAllCategoriesController);
+router.post('/', protect, store, addNewCategoryController);
+router.get('/', protect, store, getAllCategoriesController);
 
 export default router;

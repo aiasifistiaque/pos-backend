@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const schema = mongoose.Schema(
 	{
-		user: {
+		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 			ref: 'User',
@@ -14,25 +14,12 @@ const schema = mongoose.Schema(
 		image: {
 			type: String,
 		},
-		store: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Shop',
-		},
-		email: {
-			type: String,
-			trim: true,
-		},
-		phone: {
-			type: String,
-			trim: true,
-		},
-
-		address: {
-			type: String,
-			trim: true,
-		},
 
 		description: {
+			type: String,
+			trim: true,
+		},
+		category: {
 			type: String,
 			trim: true,
 		},
@@ -47,6 +34,6 @@ const schema = mongoose.Schema(
 	}
 );
 
-const Supplier = mongoose.model('Supplier', schema);
+const Shop = mongoose.model('Shop', schema);
 
-export default Supplier;
+export default Shop;

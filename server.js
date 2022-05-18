@@ -14,6 +14,9 @@ import saleRoute from './routes/saleRoute.js';
 import dashRoute from './routes/dashRoute.js';
 import expenseRoute from './routes/expenseRoute.js';
 import customerRoute from './routes/customerRoute.js';
+import userRoute from './routes/userRoute.js';
+import storeRoute from './routes/storeRoute.js';
+import employeeRoute from './routes/employeeRoute.js';
 
 dotenv.config();
 
@@ -59,6 +62,9 @@ app.use('/api/sales', saleRoute);
 app.use('/api/dashboard', dashRoute);
 app.use('/api/expenses', expenseRoute);
 app.use('/api/customers', customerRoute);
+app.use('/api/self', userRoute);
+app.use('/api/store', storeRoute);
+app.use('/api/employee', employeeRoute);
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

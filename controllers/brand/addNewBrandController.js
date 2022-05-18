@@ -12,6 +12,7 @@ const addNewBrandController = asyncHandler(async (req, res) => {
 			image,
 			description,
 			note,
+			store: req.store,
 		});
 		const saved = await newItem.save();
 		if (saved) {

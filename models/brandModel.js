@@ -11,6 +11,10 @@ const schema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		store: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Shop',
+		},
 		image: {
 			type: String,
 		},

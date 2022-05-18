@@ -5,9 +5,14 @@ import Product from '../../models/productModel.js';
 const getAllProductsController = asyncHandler(async (req, res) => {
 	const category = req.query.category && { category: req.query.category };
 	try {
-		const query = { user: req.user._id, ...category };
+		const query = { store: req.store, ...category };
 
-		console.log(query);
+		// if (!req.headers.store) {
+		// 	res.status(500).json({
+		// 		status: 'error',
+		// 		error: 'Store not defined',
+		// 	});
+		// }
 
 		const data = await Product.find(query)
 			.sort('-createdAt')

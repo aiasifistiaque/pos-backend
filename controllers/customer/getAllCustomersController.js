@@ -4,7 +4,7 @@ import Customer from '../../models/customerModel.js';
 const getAllCustomersController = asyncHandler(async (req, res) => {
 	try {
 		const data = await Customer.find({
-			user: req.user._id,
+			store: req.store,
 			role: req.query.role,
 		});
 

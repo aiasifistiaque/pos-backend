@@ -3,10 +3,11 @@ import addCustomerController from '../controllers/customer/addCustomerController
 import getAllCustomersController from '../controllers/customer/getAllCustomersController.js';
 
 import { protect } from '../middleware/auth.js';
+import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.post('/', protect, addCustomerController);
-router.get('/', protect, getAllCustomersController);
+router.post('/', protect, store, addCustomerController);
+router.get('/', protect, store, getAllCustomersController);
 
 export default router;
