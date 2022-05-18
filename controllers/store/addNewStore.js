@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import express from 'express';
 import Shop from '../../models/shopModel.js';
 import Employee from '../../models/employeeModel.js';
+import { User } from '../../models/userModel.js';
 
 const addNewStoreController = asyncHandler(async (req, res) => {
 	const { name, image, description, note, category } = req.body;
@@ -16,10 +17,14 @@ const addNewStoreController = asyncHandler(async (req, res) => {
 		});
 		const saved = await newItem.save();
 
+		const user = await User.findById(req.user._id).select('email');
+
 		const newItemTwo = new Employee({
 			user: req.user._id,
 			store: saved._id,
 			role: 'owner',
+			addedBy: req.user._id,
+			email: user.email,
 		});
 		const savedTwo = await newItemTwo.save();
 
