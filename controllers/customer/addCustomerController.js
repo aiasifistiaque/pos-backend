@@ -5,6 +5,7 @@ import addActivity from '../activity/addActivity.js';
 
 const addCustomerController = asyncHandler(async (req, res) => {
 	const { name, description, phone, email, address, role } = req.body;
+
 	try {
 		const newItem = new Customer({
 			user: req.user._id,

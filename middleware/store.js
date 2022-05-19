@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import Employee from '../models/employeeModel.js';
 
 export const store = asyncHandler(async (req, res, next) => {
 	let store;
@@ -7,6 +8,17 @@ export const store = asyncHandler(async (req, res, next) => {
 		try {
 			store = req.headers.store;
 			req.store = store;
+
+			const isEmployee = await Employee.findOne({
+				user: req.user._id,
+				store: store,
+			});
+
+			if (!isEmployee) {
+				return res.status(401).json({ message: 'Not Authorized' });
+			}
+
+			req.employee = isEmployee.role;
 
 			next();
 		} catch (error) {

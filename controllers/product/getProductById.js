@@ -10,6 +10,10 @@ const getProductById = asyncHandler(async (req, res) => {
 				select: 'name',
 			},
 			{
+				path: 'user',
+				select: 'name email',
+			},
+			{
 				path: 'brand',
 				select: 'name',
 			},

@@ -7,6 +7,12 @@ const schema = mongoose.Schema(
 			required: true,
 			ref: 'User',
 		},
+		address: {
+			street: String,
+			city: String,
+			postCode: String,
+			country: { type: String, default: 'Bangladesh' },
+		},
 		name: {
 			type: String,
 			required: true,
@@ -14,6 +20,13 @@ const schema = mongoose.Schema(
 		image: {
 			type: String,
 		},
+		phone: {
+			type: String,
+		},
+		email: {
+			type: String,
+		},
+		terms: [],
 
 		description: {
 			type: String,
