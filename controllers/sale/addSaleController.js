@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import express from 'express';
 import Product from '../../models/productModel.js';
 import Sale from '../../models/saleModel.js';
+import addActivity from '../activity/addActivity.js';
 
 const addSaleController = asyncHandler(async (req, res) => {
 	const { items, shippingPrice, vat, discount } = req.body;
@@ -35,7 +36,26 @@ const addSaleController = asyncHandler(async (req, res) => {
 		});
 		const saved = await newItem.save();
 
-		res.status(201).json({ data: newItem, status: 'Item has been added' });
+		addActivity({
+			name: 'Add Sale Order',
+			category: 'sale',
+			user: req.user._id,
+			store: req.store,
+			newStateId: saved._id,
+			description: `added a new sale order for ${totalQuantity} items worth Tk.${itemPrice}`,
+			type: 'create',
+			extra: {
+				price: parseInt(itemPrice),
+				quanity: totalQuantity,
+				shippingPrice,
+				discount,
+				vat,
+				orderItems: items,
+				customer: req.body.customer,
+			},
+		});
+
+		res.status(201).json({ data: saved, status: 'Item has been added' });
 	} catch (e) {
 		console.log(e);
 		res.status(500).json({ status: 'error', error: e.message });

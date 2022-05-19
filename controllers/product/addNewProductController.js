@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import express from 'express';
 import Product from '../../models/productModel.js';
 import Category from '../../models/categoryModel.js';
+import addActivity from '../activity/addActivity.js';
 
 const addNewProductController = asyncHandler(async (req, res) => {
 	const {
@@ -50,8 +51,17 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			store: req.store,
 		});
 		const saved = await newItem.save();
-		if (saved) {
-		}
+
+		addActivity({
+			name: 'Add Product',
+			category: 'product',
+			user: req.user._id,
+			store: req.store,
+			newStateId: saved._id,
+			description: `added a new product ${name}`,
+			type: 'create',
+		});
+
 		res.status(201).json({ data: newItem, status: 'Item has been added' });
 	} catch (e) {
 		console.log(e);

@@ -17,6 +17,7 @@ import customerRoute from './routes/customerRoute.js';
 import userRoute from './routes/userRoute.js';
 import storeRoute from './routes/storeRoute.js';
 import employeeRoute from './routes/employeeRoute.js';
+import activityRoute from './routes/activityRoute.js';
 
 dotenv.config();
 
@@ -65,6 +66,7 @@ app.use('/api/customers', customerRoute);
 app.use('/api/self', userRoute);
 app.use('/api/store', storeRoute);
 app.use('/api/employee', employeeRoute);
+app.use('/api/activities', activityRoute);
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

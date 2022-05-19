@@ -3,6 +3,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import Product from '../../models/productModel.js';
 import Purchase from '../../models/purchaseModel.js';
+import addActivity from '../activity/addActivity.js';
 
 const addPurchaseController = asyncHandler(async (req, res) => {
 	const { items, shippingPrice, vat, discount } = req.body;
@@ -34,9 +35,28 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 			store: req.store,
 		});
 		const saved = await newItem.save();
-		if (saved) {
-		}
-		res.status(201).json({ data: newItem, status: 'Item has been added' });
+
+		addActivity({
+			name: 'Add Purchase Order',
+			category: 'purchase',
+			user: req.user._id,
+			store: req.store,
+			newStateId: saved._id,
+			description: `added a new purchase order for ${totalQuantity} items worth Tk.${itemPrice}`,
+			type: 'create',
+			extra: {
+				price: parseInt(itemPrice),
+				quanity: totalQuantity,
+				shippingPrice,
+				discount,
+				vat,
+				orderItems: items,
+			},
+		});
+
+		console.log(saveds);
+
+		res.status(201).json({ data: saved, status: 'Item has been added' });
 	} catch (e) {
 		console.log(e);
 		res.status(500).json({ status: 'error', error: e.message });

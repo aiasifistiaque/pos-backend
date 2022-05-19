@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import express from 'express';
 import Expense from '../../models/expenseModel.js';
+import addActivity from '../activity/addActivity.js';
 
 const addExpenseController = asyncHandler(async (req, res) => {
 	const { name, note, description, amount, category } = req.body;
@@ -15,6 +16,16 @@ const addExpenseController = asyncHandler(async (req, res) => {
 			store: req.store,
 		});
 		const saved = await newItem.save();
+
+		addActivity({
+			name: 'Add Expense',
+			category: 'expense',
+			user: req.user._id,
+			store: req.store,
+			newStateId: saved._id,
+			description: `added a new expense ${name} of category ${category}`,
+			type: 'create',
+		});
 
 		res.status(201).json({ data: saved, status: 'Item has been added' });
 	} catch (e) {
