@@ -16,7 +16,11 @@ const getAllProductsController = asyncHandler(async (req, res) => {
 
 		const data = await Product.find(query)
 			.sort('-createdAt')
-			.populate({ path: 'category', select: 'name' });
+			.populate([
+				{ path: 'category', select: 'name' },
+				{ path: 'brand', select: 'name' },
+				{ path: 'user', select: 'name' },
+			]);
 		const count = await Product.count(query);
 
 		res.status(200).json({ count, data: data, status: 'successful' });

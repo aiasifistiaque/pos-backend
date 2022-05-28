@@ -5,7 +5,8 @@ import Employee from '../../models/employeeModel.js';
 import { User } from '../../models/userModel.js';
 
 const addNewStoreController = asyncHandler(async (req, res) => {
-	const { name, image, description, note, category } = req.body;
+	const { name, image, description, note, category, address, phone, email } =
+		req.body;
 	try {
 		const newItem = new Shop({
 			owner: req.user._id,
@@ -14,6 +15,9 @@ const addNewStoreController = asyncHandler(async (req, res) => {
 			description,
 			note,
 			category,
+			address,
+			phone,
+			email,
 		});
 		const saved = await newItem.save();
 
