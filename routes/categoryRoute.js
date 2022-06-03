@@ -3,11 +3,12 @@ import addNewCategoryController from '../controllers/category/addNewCategoryCont
 import getAllCategoriesController from '../controllers/category/getAllCategoriesController.js';
 
 import { protect } from '../middleware/auth.js';
+import { sort } from '../middleware/sort.js';
 import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
 router.post('/', protect, store, addNewCategoryController);
-router.get('/', protect, store, getAllCategoriesController);
+router.get('/', protect, store, sort, getAllCategoriesController);
 
 export default router;

@@ -1,8 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import Brand from '../../models/brandModel.js';
-import Activity from '../../models/activityModel.js';
 import addActivity from '../activity/addActivity.js';
 
 const addNewBrandController = asyncHandler(async (req, res) => {

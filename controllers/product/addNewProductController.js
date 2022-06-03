@@ -3,25 +3,29 @@ import express from 'express';
 import Product from '../../models/productModel.js';
 import Category from '../../models/categoryModel.js';
 import addActivity from '../activity/addActivity.js';
+import Brand from '../../models/brandModel.js';
 
 const addNewProductController = asyncHandler(async (req, res) => {
 	const {
 		name,
 		displayImage,
 		images,
-		brand,
+
 		price,
 		cost,
 		description,
 		note,
 		stock,
+		stockAlert,
 		status,
 		subCategory,
 		size,
 		totalSold,
 		otherCategory,
+		otherBrand,
 	} = req.body;
 	let category = req.body.category;
+	let brand = req.body.brand;
 	try {
 		if (category == 'other') {
 			const newCategory = new Category({
@@ -31,6 +35,15 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			});
 			const savedCategory = await newCategory.save();
 			category = savedCategory;
+		}
+		if (brand == 'other') {
+			const newBrand = new Brand({
+				user: req.user._id,
+				name: otherBrand,
+				store: req.store,
+			});
+			const savedBrand = await newBrand.save();
+			brand = savedBrand;
 		}
 		const newItem = new Product({
 			user: req.user._id,
@@ -44,6 +57,7 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			description,
 			note,
 			stock,
+			stockAlert,
 			status,
 			subCategory,
 			size,

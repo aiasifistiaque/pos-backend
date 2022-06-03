@@ -1,31 +1,32 @@
 import asyncHandler from 'express-async-handler';
-import Customer from '../../models/customerModel.js';
+import Product from '../../models/productModel.js';
 
-const getAllCustomersController = asyncHandler(async (req, res) => {
+const lowStockController = asyncHandler(async (req, res) => {
 	const { sort, page, perpage, skip } = req.meta;
-
 	try {
-		const data = await Customer.find({
+		const data = await Product.find({
 			store: req.store,
-			role: req.query.role,
+			$expr: { $lte: ['$stock', '$stockAlert'] },
 		})
+			.select('name stock price stockAlert')
 			.sort(sort)
 			.limit(perpage)
 			.skip(skip);
-		const count = await Customer.count({
+
+		const count = await Product.count({
 			store: req.store,
-			role: req.query.role,
+			$expr: { $lte: ['$stock', '$stockAlert'] },
 		});
 
 		req.meta.docsInPage = data.length;
 		req.meta.totalDocs = count;
 		req.meta.totalPages = Math.ceil(count / perpage);
 
-		res.status(200).json({ ...req.meta, data: data, status: 'successful' });
+		res.status(200).json({ ...req.meta, data: data });
 	} catch (e) {
 		console.log(e);
 		res.status(500).json({ status: 'error', error: e.message });
 	}
 });
 
-export default getAllCustomersController;
+export default lowStockController;
