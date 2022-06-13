@@ -6,7 +6,7 @@ import Purchase from '../../models/purchaseModel.js';
 import addActivity from '../activity/addActivity.js';
 
 const addPurchaseController = asyncHandler(async (req, res) => {
-	const { items, shippingPrice, vat, discount } = req.body;
+	const { items, shippingPrice, vat, discount, supplier } = req.body;
 	try {
 		let itemPrice = 0;
 		let totalQuantity = 0;
@@ -33,6 +33,7 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 			totalPrice: parseInt(itemPrice),
 			quantity: totalQuantity,
 			store: req.store,
+			supplier,
 		});
 		const saved = await newItem.save();
 
@@ -53,8 +54,6 @@ const addPurchaseController = asyncHandler(async (req, res) => {
 				orderItems: items,
 			},
 		});
-
-		console.log(saveds);
 
 		res.status(201).json({ data: saved, status: 'Item has been added' });
 	} catch (e) {

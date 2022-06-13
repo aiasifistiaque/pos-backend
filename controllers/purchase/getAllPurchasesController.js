@@ -6,6 +6,10 @@ const getallPurchasesController = asyncHandler(async (req, res) => {
 
 	try {
 		const data = await Purchase.find(req.meta.query)
+			.populate([
+				{ path: 'user', select: 'name' },
+				{ path: 'supplier', select: 'name' },
+			])
 			.sort(sort)
 			.limit(perpage)
 			.skip(skip);

@@ -9,7 +9,7 @@ const getAllProductsController = asyncHandler(async (req, res) => {
 		: {};
 	try {
 		const data = await Product.find({ ...category, ...req.meta.query })
-			.sort('-createdAt')
+
 			.populate([
 				{ path: 'category', select: 'name' },
 				{ path: 'brand', select: 'name' },

@@ -9,7 +9,7 @@ const schema = mongoose.Schema(
 		},
 		supplier: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Supplier',
+			ref: 'Customer',
 		},
 		store: {
 			type: mongoose.Schema.Types.ObjectId,

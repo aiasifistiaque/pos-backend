@@ -8,7 +8,13 @@ import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.post('/', protect, store, addExpenseController);
-router.get('/', protect, store, sort, getAllExpensesController);
+router.post('/', protect, store('add-expenses'), addExpenseController);
+router.get(
+	'/',
+	protect,
+	store('read-expenses'),
+	sort,
+	getAllExpensesController
+);
 
 export default router;

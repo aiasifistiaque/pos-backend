@@ -9,8 +9,14 @@ import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.post('/', protect, store, addNewProductController);
-router.get('/', protect, store, sort, getAllProductsController);
-router.get('/:id', getProductById);
+router.post('/', protect, store('add-products'), addNewProductController);
+router.get(
+	'/',
+	protect,
+	store('read-products'),
+	sort,
+	getAllProductsController
+);
+router.get('/:id', store('read-products'), getProductById);
 
 export default router;

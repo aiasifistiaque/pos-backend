@@ -7,6 +7,12 @@ import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.get('/', protect, store, sort, getActivitiesController);
+router.get(
+	'/',
+	protect,
+	store('read-activities'),
+	sort,
+	getActivitiesController
+);
 
 export default router;

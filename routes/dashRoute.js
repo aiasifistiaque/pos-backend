@@ -11,10 +11,16 @@ import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.get('/', protect, store, getDashInfo);
-router.get('/sales', protect, store, getSalesReport);
-router.get('/top', protect, store, getTopProductsController);
-router.get('/lowstock', protect, store, sort, lowStockController);
-router.get('/kpi', protect, store, getKpiController);
+router.get('/', protect, store('read-analytics'), getDashInfo);
+router.get('/sales', protect, store('read-analytics'), getSalesReport);
+router.get('/top', protect, store('read-analytics'), getTopProductsController);
+router.get(
+	'/lowstock',
+	protect,
+	store('read-analytics'),
+	sort,
+	lowStockController
+);
+router.get('/kpi', protect, store('read-analytics'), getKpiController);
 
 export default router;

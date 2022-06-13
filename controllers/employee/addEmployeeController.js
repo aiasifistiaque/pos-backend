@@ -5,7 +5,7 @@ import Employee from '../../models/employeeModel.js';
 import addActivity from '../activity/addActivity.js';
 
 const addEmployeeController = asyncHandler(async (req, res) => {
-	const { email, role } = req.body;
+	const { email, role, permissions } = req.body;
 	try {
 		const user = await User.findOne({ email: email });
 
@@ -13,15 +13,16 @@ const addEmployeeController = asyncHandler(async (req, res) => {
 		if (found)
 			return res
 				.status(500)
-				.json({ status: 'error', error: 'Employee already exists' });
+				.json({ status: 'error', message: 'Employee already exists' });
 
 		const newItem = new Employee({
 			...(user && { user: user._id }),
 			store: req.store,
-			email: email,
+			email,
 			status: user ? 'added' : 'invited',
-			role: role,
+			role,
 			addedBy: req.user._id,
+			permissions,
 		});
 
 		const saved = await newItem.save();

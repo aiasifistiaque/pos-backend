@@ -7,6 +7,20 @@ const addCustomerController = asyncHandler(async (req, res) => {
 	const { name, description, phone, email, address, role } = req.body;
 
 	try {
+		const data = await Customer.findOne({
+			phone: phone,
+			role: req.query.role,
+			store: req.store,
+		});
+
+		if (data) {
+			return res
+				.status(400)
+				.json({ status: 'error', message: 'User already exists' });
+		}
+
+		console.log(data);
+
 		const newItem = new Customer({
 			user: req.user._id,
 			name,

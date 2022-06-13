@@ -7,10 +7,16 @@ const getEmployeesController = asyncHandler(async (req, res) => {
 
 	try {
 		const data = await Employee.find(req.meta.query)
-			.populate({
-				path: 'user',
-				select: 'name email',
-			})
+			.populate([
+				{
+					path: 'user',
+					select: 'name email',
+				},
+				{
+					path: 'addedBy',
+					select: 'name',
+				},
+			])
 			.sort(sort)
 			.limit(perpage)
 			.skip(skip);

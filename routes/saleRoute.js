@@ -8,8 +8,8 @@ import { store } from '../middleware/store.js';
 
 const router = express.Router();
 
-router.get('/', protect, store, sort, getAllSalesController);
-router.post('/', protect, store, addSaleController);
-router.get('/:id', getSaleById);
+router.get('/', protect, store('read-sales'), sort, getAllSalesController);
+router.post('/', protect, store('add-purchases'), addSaleController);
+router.get('/:id', store('read-sales'), getSaleById);
 
 export default router;
