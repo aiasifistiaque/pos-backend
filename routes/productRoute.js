@@ -17,6 +17,6 @@ router.get(
 	sort,
 	getAllProductsController
 );
-router.get('/:id', store('read-products'), getProductById);
+router.get('/:id', protect, store('read-products'), getProductById);
 
 export default router;

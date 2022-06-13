@@ -6,6 +6,9 @@ import addActivity from '../activity/addActivity.js';
 const addNewCategoryController = asyncHandler(async (req, res) => {
 	const { name, image, description, note } = req.body;
 	try {
+		const count = await Category.count({ store: req.store });
+		let code = count < 10 ? `00${count}` : count < 100 ? `0${count}` : count;
+
 		const newItem = new Category({
 			user: req.user._id,
 			name,
@@ -13,6 +16,7 @@ const addNewCategoryController = asyncHandler(async (req, res) => {
 			description,
 			note,
 			store: req.store,
+			code,
 		});
 		const saved = await newItem.save();
 

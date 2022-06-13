@@ -7,6 +7,10 @@ const schema = mongoose.Schema(
 			required: true,
 			ref: 'User',
 		},
+
+		sku: {
+			type: String,
+		},
 		name: {
 			type: String,
 			required: true,

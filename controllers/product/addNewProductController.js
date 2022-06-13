@@ -10,7 +10,6 @@ const addNewProductController = asyncHandler(async (req, res) => {
 		name,
 		displayImage,
 		images,
-
 		price,
 		cost,
 		description,
@@ -23,18 +22,30 @@ const addNewProductController = asyncHandler(async (req, res) => {
 		totalSold,
 		otherCategory,
 		otherBrand,
+		categoryCode,
 	} = req.body;
 	let category = req.body.category;
 	let brand = req.body.brand;
+	let catCode = categoryCode;
 	try {
 		if (category == 'other') {
+			const categoryCount = await Category.count({ store: req.store });
+			const code =
+				categoryCount < 10
+					? `00${categoryCount}`
+					: categoryCount < 100
+					? `0${categoryCount}`
+					: categoryCount;
+
 			const newCategory = new Category({
 				user: req.user._id,
 				name: otherCategory,
 				store: req.store,
+				code,
 			});
 			const savedCategory = await newCategory.save();
 			category = savedCategory;
+			catCode = savedCategory.code;
 		}
 		if (brand == 'other') {
 			const newBrand = new Brand({
@@ -45,6 +56,21 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			const savedBrand = await newBrand.save();
 			brand = savedBrand;
 		}
+		const productCount = await Product.count({
+			store: req.store,
+			category: category,
+		});
+
+		const sku = `${catCode}${
+			productCount < 10
+				? `00${productCount}`
+				: productCount < 100
+				? `0${productCount}`
+				: productCount
+		}`;
+
+		console.log(productCount);
+
 		const newItem = new Product({
 			user: req.user._id,
 			name,
@@ -63,6 +89,7 @@ const addNewProductController = asyncHandler(async (req, res) => {
 			size,
 			totalSold,
 			store: req.store,
+			sku,
 		});
 		const saved = await newItem.save();
 

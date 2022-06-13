@@ -7,7 +7,7 @@ const getProductById = asyncHandler(async (req, res) => {
 		const data = await Product.findById(req.params.id).populate([
 			{
 				path: 'category',
-				select: 'name',
+				select: 'name code',
 			},
 			{
 				path: 'user',

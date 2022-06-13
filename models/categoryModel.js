@@ -24,6 +24,8 @@ const schema = mongoose.Schema(
 			trim: true,
 		},
 
+		code: { type: String },
+
 		note: {
 			type: String,
 			trim: true,
