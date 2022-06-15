@@ -17,11 +17,11 @@ router.post('/login', async (req, res) => {
 	if (!user)
 		return res
 			.status(400)
-			.send({ status: 'error', error: 'User does not exist' });
+			.send({ status: 'error', message: 'User does not exist' });
 
 	const validPassword = await bcrypt.compare(req.body.password, user.password);
 	if (!validPassword)
-		res.status(400).send({ status: 'error', error: 'Wrong password' });
+		res.status(400).send({ status: 'error', message: 'Wrong password' });
 
 	try {
 		const token = user.generateAuthToken();
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
 	if (user)
 		return res
 			.status(400)
-			.send({ status: 'error', error: 'User already registered' });
+			.send({ status: 'error', message: 'User already registered' });
 
 	user = new User(_.pick(req.body, ['name', 'email', 'password', 'role']));
 	const salt = await bcrypt.genSalt(10);

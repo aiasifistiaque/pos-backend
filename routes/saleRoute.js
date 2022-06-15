@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get('/', protect, store('read-sales'), sort, getAllSalesController);
 router.post('/', protect, store('add-purchases'), addSaleController);
-router.get('/:id', store('read-sales'), getSaleById);
+router.get('/:id', protect, store('read-sales'), getSaleById);
 
 export default router;

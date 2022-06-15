@@ -22,10 +22,18 @@ const getProductById = asyncHandler(async (req, res) => {
 			},
 		]);
 
-		res.status(200).json({ data: data, status: 'successful' });
+		if (data) {
+			return res.status(200).json(data);
+		} else {
+			return res
+				.status(404)
+				.json({ status: 'error', message: 'Product Not Found' });
+		}
 	} catch (e) {
 		console.log(e);
-		res.status(500).json({ status: 'error', error: e.message });
+		res
+			.status(500)
+			.json({ status: 'error', message: 'Server Error', error: e.message });
 	}
 });
 

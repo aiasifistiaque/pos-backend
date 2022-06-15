@@ -1,5 +1,6 @@
 import express from 'express';
 import addNewProductController from '../controllers/product/addNewProductController.js';
+import editProductContoller from '../controllers/product/editProductController.js';
 import getAllProductsController from '../controllers/product/getAllProductsController.js';
 import getProductById from '../controllers/product/getProductById.js';
 
@@ -18,5 +19,6 @@ router.get(
 	getAllProductsController
 );
 router.get('/:id', protect, store('read-products'), getProductById);
+router.put('/:id', protect, store('edit-products'), editProductContoller);
 
 export default router;
